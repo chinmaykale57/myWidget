@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Id Crawler</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <h1>App ID Extractor</h1>
+    </div>
+
+    <!-- Login Form (shown by default) -->
+    <div id="login-form">
+      <h2>Login</h2>
+      <div class="form-group">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password">
+      </div>
+      <div class="form-actions">
+        <button id="login-btn" class="btn primary">Log In</button>
+        <!-- <p class="switch-text">Don't have an account? <a href="#" id="show-signup">Sign up</a></p> -->
+      </div>
+      <div id="login-error" class="error-message"></div>
+    </div>
+
+    <!-- Signup Form (hidden by default)
+    <div id="signup-form" style="display: none;">
+      <h2>Create Account</h2>
+      <div class="form-group">
+        <label for="signup-name">Full Name</label>
+        <input type="text" id="signup-name" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" placeholder="Create a password">
+      </div>
+      <div class="form-actions">
+        <button id="signup-btn" class="btn primary">Sign Up</button>
+        <p class="switch-text">Already have an account? <a href="#" id="show-login">Log in</a></p>
+      </div>
+      <div id="signup-error" class="error-message"></div>
+    </div> -->
+
+    <!-- Dashboard (shown after login) -->
+    <div id="dashboard" style="display: none;">
+      <div class="user-info">
+        <p>Welcome, <span id="user-name">User</span></p>
+        <button id="logout-btn" class="btn secondary small">Log Out</button>
+      </div>
+      
+      <div class="stats">
+        <div class="stat-card">
+          <h3>Today</h3>
+          <p id="today-count">0</p>
+          <span>names collected</span>
+        </div>
+        <div class="stat-card">
+          <h3>Total</h3>
+          <p id="total-count">0</p>
+          <span>in database</span>
+        </div>
+      </div>
+      
+      <div class="actions">
+        <button id="view-names-btn" class="btn primary">View Collected Names</button>
+        <button id="settings-btn" class="btn secondary">Settings</button>
+      </div>
+      
+      <div class="session-info">
+        <p>Session expires in <span id="days-remaining">30</span> days</p>
+      </div>
+    </div>
+  </div>
+  <script src="popup-app-js.js"></script>
+</body>
+</html>
