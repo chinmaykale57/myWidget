@@ -1,8 +1,8 @@
 // App ID Tracker - Background Script
-// This script manages the collection of app IDs and communicates with the backend
-
-// Track app IDs found during the current session
 let sessionAppIds = {};
+
+// The specific client domain we want to track (REPLACE THIS WITH YOUR CLIENT'S DOMAIN)
+const CLIENT_DOMAIN = "client-site-domain.com"; // Example placeholder
 
 // Initialize when extension loads
 function initialize() {
@@ -42,7 +42,6 @@ function checkAuthStatus() {
       if (currentTime > expirationTime) {
         console.log('Token expired, logging out...');
         chrome.storage.local.remove(["user"]);
-        // You may want to notify the user somehow
       } else {
         console.log('Token valid until', new Date(expirationTime));
       }
@@ -50,6 +49,17 @@ function checkAuthStatus() {
       console.error('Error validating token:', error);
     }
   });
+}
+
+// Check if URL belongs to the client domain
+function isClientSite(url) {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname.includes(CLIENT_DOMAIN);
+  } catch (e) {
+    console.error('Invalid URL:', url);
+    return false;
+  }
 }
 
 // Save app IDs to local storage
@@ -62,6 +72,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Handle app IDs found on page
   if (message.action === 'app_ids_found') {
     const { appIds, url } = message;
+    
+    // Only process if from client site
+    if (!isClientSite(url)) {
+      console.log('Ignoring app IDs from non-client site:', url);
+      sendResponse({ success: false, reason: 'not_client_site' });
+      return true;
+    }
     
     // Store app IDs with the URL as the key
     sessionAppIds[url] = appIds;

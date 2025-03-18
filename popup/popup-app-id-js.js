@@ -52,11 +52,19 @@ function displayAppIds(appIds) {
   const appIdsContainer = document.getElementById('app-ids-container');
   const emptyState = document.getElementById('empty-state');
   
+  // Clear the container first
   appIdsContainer.innerHTML = '';
+
+  // Check if appIds is valid and has properties
+  if (!appIds || typeof appIds !== 'object') {
+    emptyState.style.display = 'block';
+    return;
+  }
 
   const urls = Object.keys(appIds);
 
-  if (urls.length === 0) {
+  // Fixed: Check length after getting keys
+  if (!urls || urls.length === 0) {
     emptyState.style.display = 'block';
     return;
   }
@@ -141,9 +149,6 @@ function scanCurrentPage() {
           }, () => {
             loadAppIds();
             showStatus(`${response.appIds.length} App IDs found`, 'success');
-            
-            // Send to server after storing locally
-            sendAppIdsToServer(activeTab.url, response.appIds);
           });
         } else {
           showStatus('No App IDs found on this page', 'error');
@@ -153,39 +158,10 @@ function scanCurrentPage() {
   });
 }
 
-// Send app IDs to server with authentication
-function sendAppIdsToServer(url, appIds) {
-  chrome.storage.local.get(["user"], (data) => {
-    if (!data.user || !data.user.token) {
-      alert("Session expired. Please log in again.");
-      window.open("popup-auth-html.html", "_self");
-      return;
-    }
-
-    fetch("http://157.66.191.31.16:30166/api/app-ids", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${data.user.token}`
-      },
-      body: JSON.stringify({ url, appIds, timestamp: new Date().toISOString() })
-    })
-    .then(response => response.json())
-    .then(serverResponse => {
-      console.log("Server Response:", serverResponse);
-      showStatus("App IDs successfully sent to server!", "success");
-    })
-    .catch(error => {
-      console.error("Error sending App IDs:", error);
-      showStatus("Failed to send App IDs", "error");
-    });
-  });
-}
-
 // Clear all stored app IDs
 function clearAllData() {
   chrome.runtime.sendMessage({ action: 'clear_data' }, (response) => {
-    if (response.success) {
+    if (response && response.success) {
       loadAppIds();
       showStatus('All App IDs cleared', 'success');
     } else {

@@ -3,7 +3,7 @@
     "name": "App ID Extractor",  
     "version": "1.0.0",
     "description": "Extract and collect App IDs from web pages",
-    "permissions": ["storage", "activeTab", "scripting"],
+    "permissions": ["storage", "tabs", "scripting"],
     "host_permissions": ["<all_urls>"],
     "background": {
       "service_worker": "background/background-app-id.js"
