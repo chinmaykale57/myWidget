@@ -122,7 +122,6 @@ function updateBadge(count) {
 
 // Send app IDs to your server
 function sendToServer(url, appIds) {
-  // Get auth token from user object
   chrome.storage.local.get(["user"], (data) => {
     if (!data.user || !data.user.token) {
       console.log('No authentication token found');
@@ -158,5 +157,5 @@ function sendToServer(url, appIds) {
   });
 }
 
-// Run initialization
+
 initialize();

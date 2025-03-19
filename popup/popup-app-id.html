@@ -113,6 +113,15 @@
       background-color: #fafafa;
       border-radius: 6px;
     }
+
+    .logout {
+    color: #fff;  /* White text for better visibility */
+    background-color: grey;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
     
     .copy-btn {
       background-color: transparent;
@@ -165,6 +174,10 @@
     <button id="scan-btn" class="primary">Scan Current Page</button>
     <button id="copy-all-btn" class="secondary">Copy All</button>
     <button id="clear-btn" class="secondary">Clear All</button>
+  </div>
+
+  <div class="actions">
+    <button id="logout-btn" class="logout">Logout</button>
   </div>
   
   <div id="status" class="status"></div>

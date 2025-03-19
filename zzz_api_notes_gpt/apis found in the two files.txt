@@ -1,0 +1,12 @@
+🔹 API Paths We Found in Your Files
+API Path	                    Method	          Purpose
+/api/wireframe	                 GET	          Get all wireframes (paginated)
+/api/wireframe/{id}	             GET	          Get a specific wireframe by ID
+/api/wireframe	                 POST	          Create a new wireframe
+/api/wireframe/{id}	             PUT	          Update a wireframe
+/api/wireframe-copy	             POST	          Copy an existing wireframe
+/api/wireframe-uiname/{id}	     PUT	          Update the UI name of a wireframe
+/wfb/newupdate/getall/wireframe/{proj_id}	GET	  Get wireframes by Project ID
+/wfb/newupdate/getall/wireframe/backendId/{id}	GET	Get wireframes by Backend ID
+/wfb/newupdate/headersnew/{id}	 PUT	          Update a wireframe header
+These paths should exist based on your files, but we must confirm with the backend team which ones are actually live and working.
